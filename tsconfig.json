@@ -11,10 +11,14 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@services": ["src/app/services/index.ts"],
+      "@models": ["src/app/models/index.ts"],
+      "@courses/*": ["src/app/courses/*"],
+      "@storeConfig": ["src/app/store/index.ts"],
+      "@store/*": ["src/app/store/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
