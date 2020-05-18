@@ -1,4 +1,7 @@
 <div class="container">
+  <h2>All courses</h2>
+  <label>In promo: {{ selectPromoTotal$ | async }}</label>
+
   <mat-tab-group>
     <mat-tab label="Beginners">
       <app-courses-card-list [courses]="beginnerCourses$ | async"></app-courses-card-list>

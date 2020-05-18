@@ -1,17 +1,18 @@
 import { Course } from '@models';
 import { CourseActions, CourseActionTypes } from '@store/actions/course.actions';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-export interface CourseState {
-  courses: Course[];
+export interface CourseState extends EntityState<Course> {
   loading: boolean;
   loaded: boolean;
 }
 
-export const initialCourseState: CourseState = {
-  courses: [],
+export const adapter: EntityAdapter<Course> = createEntityAdapter<Course>();
+
+export const initialCourseState: CourseState = adapter.getInitialState({
   loading: false,
   loaded: false
-};
+});
 
 export function courseReducer(state = initialCourseState, action: CourseActions): CourseState {
   switch (action.type) {
@@ -21,7 +22,7 @@ export function courseReducer(state = initialCourseState, action: CourseActions)
 
     case CourseActionTypes.SUCCESS_LOAD_COURSES:
       console.log('courseReducer - CourseActionTypes.SUCCESS_LOAD_COURSES', action.payload);
-      return { ...state, courses: action.payload.courses, loading: false, loaded: true };
+      return adapter.setAll(action.payload.courses, { ...state, loading: false, loaded: true });
 
     case CourseActionTypes.ERROR_LOAD_COURSES:
       console.log('courseReducer - CourseActionTypes.ERROR_LOAD_COURSES');
@@ -31,3 +32,5 @@ export function courseReducer(state = initialCourseState, action: CourseActions)
       return state;
   }
 }
+
+export const { selectAll, selectEntities, selectIds, selectTotal } = adapter.getSelectors();

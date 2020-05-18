@@ -5,9 +5,10 @@ import { LoadCourses } from '@store/actions/course.actions';
 import { Store, select } from '@ngrx/store';
 import { ApplicationState } from '@storeConfig';
 import {
-  selectCourses$,
-  selectBeginnerCourses$,
-  selectAdvancedCourses$
+  selectCourses,
+  selectBeginnerCourses,
+  selectAdvancedCourses,
+  selectPromoTotal
 } from '@store/selectors/course.selector';
 
 @Component({
@@ -18,12 +19,14 @@ import {
 export class CoursesComponent implements OnInit {
   beginnerCourses$: Observable<Course[]>;
   advancedCourses$: Observable<Course[]>;
+  selectPromoTotal$: Observable<number>;
 
   constructor(private store: Store<ApplicationState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(new LoadCourses());
-    this.beginnerCourses$ = this.store.pipe(select(selectBeginnerCourses$));
-    this.advancedCourses$ = this.store.pipe(select(selectAdvancedCourses$));
+    this.beginnerCourses$ = this.store.pipe(select(selectBeginnerCourses));
+    this.advancedCourses$ = this.store.pipe(select(selectAdvancedCourses));
+    this.selectPromoTotal$ = this.store.pipe(select(selectPromoTotal));
   }
 }

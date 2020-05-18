@@ -12,6 +12,7 @@ export class CourseService {
 
   findAllCourses(): Observable<Course[]> {
     // tslint:disable-next-line: no-string-literal
+    console.log('findAllCourses');
     return this.http.get('/api/courses').pipe(map(res => res['payload']));
   }
 }

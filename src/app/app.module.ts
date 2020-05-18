@@ -17,7 +17,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '@store/effects/user.effect';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { CourseEffects } from '@store/effects/course.effect';
 import { CoursesModule } from '@courses/courses.module';
 
 @NgModule({
@@ -31,7 +30,7 @@ import { CoursesModule } from '@courses/courses.module';
     HttpClientModule,
     CoursesModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AuthEffects, CourseEffects]),
+    EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode

@@ -8,15 +8,13 @@ import { storeFreeze } from 'ngrx-store-freeze';
 
 export interface ApplicationState {
   user: AuthState;
-  course: CourseState;
 }
 
 export const reducers: ActionReducerMap<ApplicationState> = {
-  user: authReducer,
-  course: courseReducer
+  user: authReducer
 };
 
-export const ApplicationEffects = [AuthEffects, CourseEffects];
+export const ApplicationEffects = [AuthEffects];
 
 export const metaReducers: MetaReducer<ApplicationState>[] = !environment.production
   ? [storeFreeze]
