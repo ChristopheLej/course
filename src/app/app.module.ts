@@ -12,7 +12,7 @@ import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './store';
+import { reducers, metaReducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '@store/effects/user.effect';
 import { environment } from 'src/environments/environment';
@@ -30,7 +30,7 @@ import { CoursesModule } from '@courses/courses.module';
     ReactiveFormsModule,
     HttpClientModule,
     CoursesModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AuthEffects, CourseEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
