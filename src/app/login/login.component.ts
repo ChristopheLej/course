@@ -4,7 +4,7 @@ import { AuthService } from '@services';
 import { Router } from '@angular/router';
 import { ApplicationState } from '@storeConfig';
 import { Store } from '@ngrx/store';
-import { Login } from '@store/actions/user.action';
+import { Login } from '@store/actions/user.actions';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +14,7 @@ import { Login } from '@store/actions/user.action';
 export class LoginComponent implements OnInit {
   form: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<ApplicationState>,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder, private store: Store<ApplicationState>) {
     this.form = fb.group({
       email: ['test@angular-university.io', [Validators.required]],
       password: ['test', [Validators.required]]

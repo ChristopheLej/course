@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { ApplicationState } from '@storeConfig';
 import { isLoggedIn, isLoggedOut } from '@store/selectors/auth.selector';
-import { Logout } from '@store/actions/user.action';
+import { Logout } from '@store/actions/user.actions';
 
 @Component({
   selector: 'app-menu',

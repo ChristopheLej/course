@@ -7,7 +7,7 @@ import {
   ErrorLogin,
   Login,
   Logout
-} from '@store/actions/user.action';
+} from '@store/actions/user.actions';
 import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
