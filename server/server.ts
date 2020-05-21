@@ -22,7 +22,7 @@ app.route('/api/courses/:id').get(getCourseById);
 
 app.route('/api/lessons').get(searchLessons);
 
-const httpServer = app.listen(9000, () => {
+const httpServer = app.listen(9300, () => {
   const address: AddressInfo = httpServer.address() as AddressInfo;
   console.log('HTTP REST API Server running at http://localhost:' + address.port);
 });
