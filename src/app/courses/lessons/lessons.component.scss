@@ -1,0 +1,49 @@
+.course {
+  text-align: center;
+  max-width: 390px;
+  margin: 0 auto;
+
+  .course-thumbnail {
+    width: 150px;
+    margin: 20px auto 0 auto;
+    display: block;
+  }
+
+  .lessons-table {
+    min-height: 360px;
+    margin-top: 10px;
+  }
+
+  .seqNo-cell {
+    max-width: 20px;
+  }
+
+  .duration-cell {
+    display: grid;
+    max-width: 50px;
+  }
+
+  .description-cell {
+    text-align: left;
+    padding: 0 10px;
+  }
+
+  .description-header-cell {
+    display: grid;
+    text-align: center;
+  }
+
+  .spinner-container {
+    height: 340px;
+    width: 390px;
+    position: fixed;
+    background: white;
+    margin-top: 70px;
+    z-index: 1;
+
+    mat-spinner {
+      margin-top: 100px;
+      margin-left: 140px;
+    }
+  }
+}

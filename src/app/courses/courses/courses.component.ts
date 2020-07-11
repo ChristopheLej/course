@@ -8,11 +8,14 @@ import {
   selectCourses,
   selectBeginnerCourses,
   selectAdvancedCourses,
+  selectIntermediateCourses,
   selectPromoTotal
 } from '@store/selectors/course.selector';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, ofType } from '@ngrx/effects';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { coursesFeatureKey } from '@store/reducers/course.reducer';
 
 @Component({
   selector: 'app-courses',
@@ -20,16 +23,19 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
+  allCourses: Course[];
   beginnerCourses$: Observable<Course[]>;
   advancedCourses$: Observable<Course[]>;
+  intermediateCourses$: Observable<Course[]>;
   selectPromoTotal$: Observable<number>;
 
   constructor(
     private store: Store<ApplicationState>,
-    actions$: Actions,
+    private route: ActivatedRoute,
+    private actions$: Actions,
     private snackBar: MatSnackBar
   ) {
-    actions$.pipe(ofType(CourseActionTypes.ErrorUpdateCourse)).subscribe(action => {
+    this.actions$.pipe(ofType(CourseActionTypes.ErrorUpdateCourse)).subscribe(action => {
       const response = (action as ErrorUpdateCourse).payload as HttpErrorResponse;
       this.snackBar.open(response.statusText, 'Error', {
         duration: 2000,
@@ -37,7 +43,7 @@ export class CoursesComponent implements OnInit {
       });
     });
 
-    actions$.pipe(ofType(CourseActionTypes.SuccessUpdateCourse)).subscribe(action => {
+    this.actions$.pipe(ofType(CourseActionTypes.SuccessUpdateCourse)).subscribe(action => {
       this.snackBar.open('Course saved', '', {
         duration: 2000,
         verticalPosition: 'top'
@@ -47,8 +53,10 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new LoadCourses());
+    this.store.pipe(select(selectCourses)).subscribe(courses => (this.allCourses = courses));
     this.beginnerCourses$ = this.store.pipe(select(selectBeginnerCourses));
     this.advancedCourses$ = this.store.pipe(select(selectAdvancedCourses));
+    this.intermediateCourses$ = this.store.pipe(select(selectIntermediateCourses));
     this.selectPromoTotal$ = this.store.pipe(select(selectPromoTotal));
   }
 }

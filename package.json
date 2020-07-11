@@ -24,6 +24,7 @@
     "@angular/router": "~9.1.6",
     "@ngrx/effects": "^9.1.2",
     "@ngrx/entity": "^9.1.2",
+    "@ngrx/router-store": "^9.1.2",
     "@ngrx/schematics": "^9.1.2",
     "@ngrx/store": "^9.1.2",
     "body-parser": "^1.19.0",

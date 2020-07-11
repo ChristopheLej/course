@@ -1,13 +1,20 @@
-<div class="container">
+<div class="container" *ngIf="allCourses.length > 0">
   <h2>All courses</h2>
   <label>In promo: {{ selectPromoTotal$ | async }}</label>
 
-  <mat-tab-group>
+  <mat-tab-group mat-align-tabs="start">
     <mat-tab label="Beginners">
       <app-courses-card-list [courses]="beginnerCourses$ | async"></app-courses-card-list>
+    </mat-tab>
+    <mat-tab label="Intermediate">
+      <app-courses-card-list [courses]="intermediateCourses$ | async"></app-courses-card-list>
     </mat-tab>
     <mat-tab label="Advanced">
       <app-courses-card-list [courses]="advancedCourses$ | async"></app-courses-card-list>
     </mat-tab>
   </mat-tab-group>
+</div>
+
+<div class="container" *ngIf="allCourses.length === 0">
+  <h2>No courses</h2>
 </div>

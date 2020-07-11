@@ -1,0 +1,1 @@
+export { PageQuery } from './pageQuery';

@@ -20,7 +20,7 @@ export function reducer(state = initialCourseState, action: CourseActions): Cour
   switch (action.type) {
     case CourseActionTypes.LoadCourses:
       console.log('courseReducer - CourseActionTypes.LoadCourses');
-      return { ...state, loading: true, loaded: false };
+      return { ...state, loading: !state.loaded };
 
     case CourseActionTypes.SuccessLoadCourses:
       console.log('courseReducer - CourseActionTypes.SuccessLoadCourses', action.payload);
@@ -28,6 +28,18 @@ export function reducer(state = initialCourseState, action: CourseActions): Cour
 
     case CourseActionTypes.ErrorLoadCourses:
       console.log('courseReducer - CourseActionTypes.ErrorLoadCourses');
+      return { ...state, loading: false, loaded: false };
+
+    case CourseActionTypes.LoadCourse:
+      console.log('courseReducer - CourseActionTypes.LoadCourse');
+      return { ...state, loading: !state.loaded };
+
+    case CourseActionTypes.SuccessLoadCourse:
+      console.log('courseReducer - CourseActionTypes.SuccessLoadCourse', action.payload);
+      return adapter.addOne(action.payload.course, { ...state, loading: false, loaded: true });
+
+    case CourseActionTypes.ErrorLoadCourse:
+      console.log('courseReducer - CourseActionTypes.ErrorLoadCourse');
       return { ...state, loading: false, loaded: false };
 
     case CourseActionTypes.UpdateCourse:

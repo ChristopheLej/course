@@ -1,8 +1,12 @@
 .container {
-  width: 350px;
+  width: 360px;
   margin-left: auto;
   margin-right: auto;
   h2 {
     text-align: center;
   }
+}
+
+::ng-deep .mat-tab-label {
+  min-width: 116px !important;
 }

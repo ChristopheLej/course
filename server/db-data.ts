@@ -121,14 +121,14 @@ export const LESSONS = {
     id: 1,
     description: 'Angular Tutorial For Beginners - Build Your First App - Hello World Step By Step',
     duration: '4:17',
-    seqNo: 1,
+    seqNo: 2,
     courseId: 1
   },
   2: {
     id: 2,
     description: 'Building Your First  Component - Component Composition',
     duration: '2:07',
-    seqNo: 2,
+    seqNo: 1,
     courseId: 1
   },
   3: {
