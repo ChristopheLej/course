@@ -9,6 +9,9 @@ import { PageQuery } from '@utils';
 import { MatPaginator } from '@angular/material/paginator';
 import { tap } from 'rxjs/operators';
 import { selectLessonsLoading } from '@store/selectors/lesson.selector';
+import { LessonActionTypes, errorLoadLessons } from '@store/actions/lesson.actions';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-lessons',
@@ -23,8 +26,18 @@ export class LessonsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   loading$: Observable<boolean>;
+  asError: boolean;
 
-  constructor(private route: ActivatedRoute, private store: Store<ApplicationState>) {}
+  constructor(
+    private route: ActivatedRoute,
+    private actions$: Actions,
+    private store: Store<ApplicationState>
+  ) {
+    this.actions$.pipe(ofType(LessonActionTypes.ErrorLoadLessons)).subscribe(action => {
+      const response = (action as any).payload as HttpErrorResponse;
+      this.asError = true;
+    });
+  }
 
   ngOnInit(): void {
     console.log(this.route);
@@ -53,6 +66,7 @@ export class LessonsComponent implements OnInit, AfterViewInit {
       pageSize: this.paginator.pageSize
     };
 
+    this.asError = false;
     this.dataSource.loadLessons(this.course.id, newPage);
   }
 }

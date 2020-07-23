@@ -9,7 +9,8 @@ import {
   selectBeginnerCourses,
   selectAdvancedCourses,
   selectIntermediateCourses,
-  selectPromoTotal
+  selectPromoTotal,
+  isLoading
 } from '@store/selectors/course.selector';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, ofType } from '@ngrx/effects';
@@ -28,6 +29,7 @@ export class CoursesComponent implements OnInit {
   advancedCourses$: Observable<Course[]>;
   intermediateCourses$: Observable<Course[]>;
   selectPromoTotal$: Observable<number>;
+  isLoading$: Observable<boolean>;
 
   constructor(
     private store: Store<ApplicationState>,
@@ -49,6 +51,8 @@ export class CoursesComponent implements OnInit {
         verticalPosition: 'top'
       });
     });
+
+    this.isLoading$ = this.store.pipe(select(isLoading));
   }
 
   ngOnInit(): void {

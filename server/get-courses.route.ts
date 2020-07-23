@@ -4,7 +4,7 @@ import { Sleep } from './sleep';
 
 export function getAllCourses(req: Request, res: Response) {
   console.log('Retrieving courses data ...');
-  Sleep.msleep(1000);
+  Sleep.msleep(3000);
 
   res.status(200).json({ payload: Object.values(COURSES) });
 }

@@ -31,6 +31,7 @@ export const initialState: LessonState = adapter.getInitialState({
 export const reducer = createReducer(
   initialState,
   on(LessonActions.loadLessonsRequested, state => ({ ...state, loading: true })),
+  on(LessonActions.errorLoadLessons, state => ({ ...state, loading: false })),
   on(LessonActions.addLessons, (state, action) =>
     adapter.addMany(action.lessons, { ...state, loading: false })
   )

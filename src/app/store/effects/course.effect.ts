@@ -42,10 +42,13 @@ export class CourseEffects {
     ofType<LoadCourses>(CourseActionTypes.LoadCourses),
     tap(action => console.log('loadAllCourses', action)),
     withLatestFrom(this.store.pipe(select(allCoursesLoaded))),
-    filter(([action, loaded]) => !loaded),
-    exhaustMap(action => this.service.findAllCourses()),
-    map(courses => new SuccessLoadCourses({ courses })),
-    catchError(err => of(new ErrorLoadCourses(err)))
+    // filter(([action, loaded]) => !loaded),
+    switchMap(action =>
+      this.service.findAllCourses().pipe(
+        map(courses => new SuccessLoadCourses({ courses })),
+        catchError(err => of(new ErrorLoadCourses(err)))
+      )
+    )
   );
 
   @Effect() loadCourse$: Observable<CourseActions> = this.actions$.pipe(
