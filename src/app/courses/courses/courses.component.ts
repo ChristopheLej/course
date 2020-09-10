@@ -16,6 +16,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { coursesFeatureKey } from '@store/reducers/course.reducer';
+import { isLoading } from '@store/selectors/course.selector';
 
 @Component({
   selector: 'app-courses',
@@ -23,7 +24,8 @@ import { coursesFeatureKey } from '@store/reducers/course.reducer';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  allCourses: Course[];
+  isLoading$: Observable<boolean>;
+  allCourses: Course[] = [];
   beginnerCourses$: Observable<Course[]>;
   advancedCourses$: Observable<Course[]>;
   intermediateCourses$: Observable<Course[]>;
@@ -42,13 +44,13 @@ export class CoursesComponent implements OnInit {
         verticalPosition: 'top'
       });
     });
-
     this.actions$.pipe(ofType(CourseActionTypes.SuccessUpdateCourse)).subscribe(action => {
       this.snackBar.open('Course saved', '', {
         duration: 2000,
         verticalPosition: 'top'
       });
     });
+    this.isLoading$ = this.store.pipe(select(isLoading));
   }
 
   ngOnInit(): void {

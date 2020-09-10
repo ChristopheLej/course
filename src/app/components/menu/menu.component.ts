@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
   isLoggedIn$: Observable<boolean>;
   isLoggedOut$: Observable<boolean>;
 
-  constructor(private store: Store<ApplicationState>, private router: Router) {}
+  constructor(private store: Store<ApplicationState>) {}
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.store.pipe(select(isLoggedIn));
