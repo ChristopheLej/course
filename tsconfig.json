@@ -16,7 +16,7 @@
       "@services": ["src/app/services/index.ts"],
       "@models": ["src/app/models/index.ts"],
       "@courses/*": ["src/app/courses/*"],
-      "@components/*": ["src/app/components/*"],
+      "@components": ["src/app/components/index.ts"],
       "@utils": ["src/app/utils/index.ts"],
       "@storeConfig": ["src/app/store/index.ts"],
       "@store/*": ["src/app/store/*"]

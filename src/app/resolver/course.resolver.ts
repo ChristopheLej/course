@@ -13,7 +13,7 @@ export class CourseResolver implements Resolve<Course> {
   constructor(private store: Store<ApplicationState>) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Course> {
-    // console.log('resolve');
+    console.log('resolve');
     // this.store.select(selectCourses).pipe(
     //   map(data => {
     //     console.log(data);

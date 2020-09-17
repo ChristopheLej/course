@@ -24,11 +24,12 @@ import {
   SuccessUpdateCourse,
   LoadCourse,
   SuccessLoadCourse,
-  ErrorLoadCourse
+  ErrorLoadCourse,
+  EmptyLoadCourses
 } from '@store/actions/course.actions';
 import { Store, select } from '@ngrx/store';
 import { ApplicationState } from '@storeConfig';
-import { allCoursesLoaded } from '@store/selectors/course.selector';
+import { allCoursesLoaded, selectCourses } from '@store/selectors/course.selector';
 
 @Injectable()
 export class CourseEffects {
@@ -43,17 +44,22 @@ export class CourseEffects {
     tap(action => console.log('loadAllCourses', action)),
     withLatestFrom(this.store.pipe(select(allCoursesLoaded))),
     // filter(([action, loaded]) => !loaded),
-    switchMap(action =>
-      this.service.findAllCourses().pipe(
-        map(courses => new SuccessLoadCourses({ courses })),
-        catchError(err => of(new ErrorLoadCourses(err)))
-      )
-    )
+    switchMap(([action, loaded]) => {
+      console.log(loaded);
+      if (!loaded) {
+        return this.service.findAllCourses().pipe(
+          map(courses => new SuccessLoadCourses({ courses })),
+          catchError(err => of(new ErrorLoadCourses(err)))
+        );
+      } else {
+        return of(new EmptyLoadCourses());
+      }
+    })
   );
 
   @Effect() loadCourse$: Observable<CourseActions> = this.actions$.pipe(
     ofType<LoadCourse>(CourseActionTypes.LoadCourse),
-    tap(action => console.log(action)),
+    // tap(action => console.log(action)),
     mergeMap(action => this.service.findCourseById(action.payload.courseId)),
     map(course => new SuccessLoadCourse({ course })),
     catchError(err => of(new ErrorLoadCourse(err)))
@@ -78,7 +84,7 @@ export class CourseEffects {
 
   @Effect() UpdateCourse$ = this.actions$.pipe(
     ofType<UpdateCourse>(CourseActionTypes.UpdateCourse),
-    tap(action => console.log(action)),
+    // tap(action => console.log(action)),
     exhaustMap(action =>
       this.service.saveCourse(action.payload.id, action.payload.changes).pipe(
         map(

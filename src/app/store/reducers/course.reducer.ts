@@ -19,43 +19,35 @@ export const initialCourseState: CourseState = adapter.getInitialState({
 export function reducer(state = initialCourseState, action: CourseActions): CourseState {
   switch (action.type) {
     case CourseActionTypes.LoadCourses:
-      console.log('courseReducer - CourseActionTypes.LoadCourses', new Date());
-      return { ...state, loading: true, loaded: false };
+      console.log('reducer - LoadCourses');
+      return { ...state, loading: true };
+
+    case CourseActionTypes.EmptyLoadCourses:
+      console.log('reducer - EmptyLoadCourses');
+      return { ...state, loading: false };
 
     case CourseActionTypes.SuccessLoadCourses:
-      console.log(
-        'courseReducer - CourseActionTypes.SuccessLoadCourses',
-        action.payload,
-        new Date()
-      );
       return adapter.setAll(action.payload.courses, { ...state, loading: false, loaded: true });
 
     case CourseActionTypes.ErrorLoadCourses:
-      console.log('courseReducer - CourseActionTypes.ErrorLoadCourses');
       return { ...state, loading: false, loaded: false };
 
     case CourseActionTypes.LoadCourse:
-      console.log('courseReducer - CourseActionTypes.LoadCourse');
       return { ...state, loading: !state.loaded };
 
     case CourseActionTypes.SuccessLoadCourse:
-      console.log('courseReducer - CourseActionTypes.SuccessLoadCourse', action.payload);
       return adapter.addOne(action.payload.course, { ...state, loading: false, loaded: true });
 
     case CourseActionTypes.ErrorLoadCourse:
-      console.log('courseReducer - CourseActionTypes.ErrorLoadCourse');
       return { ...state, loading: false, loaded: false };
 
     case CourseActionTypes.UpdateCourse:
-      console.log('courseReducer - CourseActionTypes.UpdateCourse');
       return state;
 
     case CourseActionTypes.SuccessUpdateCourse:
-      console.log('courseReducer - CourseActionTypes.SuccessUpdateCourse');
       return adapter.updateOne(action.payload, { ...state });
 
     case CourseActionTypes.ErrorUpdateCourse:
-      console.log('courseReducer - CourseActionTypes.ErrorUpdateCourse', action.payload);
       return state;
 
     default:
