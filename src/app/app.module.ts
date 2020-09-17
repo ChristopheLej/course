@@ -15,7 +15,7 @@ import {
   AboutComponent,
   HomeComponent
 } from '@components';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule, META_REDUCERS } from '@ngrx/store';
 import { reducers, metaReducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
@@ -26,8 +26,9 @@ import { CoursesModule } from '@courses/courses.module';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { CustomSerializer, routerFeatureKey } from './utils/customSerializer';
 import { getMetaReducers } from '@store/reducers/storage.metareducer';
-import { LocalStorageService } from '@services';
+import { LocalStorageService, RequestCacheService } from '@services';
 import { ROOT_STORAGE_KEYS, ROOT_LOCAL_STORAGE_KEY } from './app.tokens';
+import { CachingInterceptor } from './interceptors';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,8 @@ import { ROOT_STORAGE_KEYS, ROOT_LOCAL_STORAGE_KEY } from './app.tokens';
     StoreRouterConnectingModule.forRoot({ stateKey: routerFeatureKey })
   ],
   providers: [
+    RequestCacheService,
+    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
     { provide: RouterStateSerializer, useClass: CustomSerializer },
     { provide: ROOT_STORAGE_KEYS, useValue: ['layout.theme', 'user.user', 'user.loggedIn'] },
     { provide: ROOT_LOCAL_STORAGE_KEY, useValue: '__app_storage__' },

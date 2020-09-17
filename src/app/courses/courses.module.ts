@@ -10,7 +10,7 @@ import * as fromCourse from '@store/reducers/course.reducer';
 import * as fromLesson from '@store/reducers/lesson.reducer';
 import { Routes, RouterModule } from '@angular/router';
 import { LessonsComponent } from './lessons/lessons.component';
-import { CourseResolver } from '../resolver/course.resolver';
+import { CourseResolver } from '@resolvers';
 import { LessonEffects } from '@store/effects/lesson.effect';
 import { LocalStorageService, CourseService } from '@services';
 import { getCoursesConfig, COURSES_CONFIG_TOKEN } from '@store/config/course.config';
@@ -18,7 +18,11 @@ import { getLessonsConfig, LESSONS_CONFIG_TOKEN } from '@store/config/lesson.con
 
 export const coursesRoutes: Routes = [
   { path: '', component: CoursesComponent },
-  { path: ':id', component: LessonsComponent, resolve: { course: CourseResolver } }
+  {
+    path: ':id',
+    component: LessonsComponent,
+    resolve: { course: CourseResolver, lesson: CourseResolver }
+  }
 ];
 
 @NgModule({
@@ -41,6 +45,7 @@ export const coursesRoutes: Routes = [
   entryComponents: [CourseDialogComponent],
   providers: [
     CourseService,
+    CourseResolver,
     LocalStorageService,
     // { provide: COURSES_LOCAL_STORAGE_KEY, useValue: '__courses_storage__' },
     // { provide: COURSES_STORAGE_KEYS, useValue: ['ids', 'entities'] },

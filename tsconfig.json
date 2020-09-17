@@ -19,7 +19,8 @@
       "@components": ["src/app/components/index.ts"],
       "@utils": ["src/app/utils/index.ts"],
       "@storeConfig": ["src/app/store/index.ts"],
-      "@store/*": ["src/app/store/*"]
+      "@store/*": ["src/app/store/*"],
+      "@resolvers": ["src/app/resolvers/index.ts"]
     }
   },
   "angularCompilerOptions": {

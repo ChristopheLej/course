@@ -45,15 +45,14 @@ export class CourseEffects {
     withLatestFrom(this.store.pipe(select(allCoursesLoaded))),
     // filter(([action, loaded]) => !loaded),
     switchMap(([action, loaded]) => {
-      console.log(loaded);
-      if (!loaded) {
-        return this.service.findAllCourses().pipe(
-          map(courses => new SuccessLoadCourses({ courses })),
-          catchError(err => of(new ErrorLoadCourses(err)))
-        );
-      } else {
-        return of(new EmptyLoadCourses());
-      }
+      // if (!loaded) {
+      return this.service.findAllCourses().pipe(
+        map(courses => new SuccessLoadCourses({ courses })),
+        catchError(err => of(new ErrorLoadCourses(err)))
+      );
+      // } else {
+      //   return of(new EmptyLoadCourses());
+      // }
     })
   );
 
