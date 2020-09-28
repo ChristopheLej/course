@@ -13,7 +13,7 @@ export class CourseResolver implements Resolve<Course> {
   constructor(private store: Store<ApplicationState>) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Course> {
-    console.log('resolve');
+    console.log('CourseResolver');
     const id = route.params['id'];
 
     return this.store.pipe(
