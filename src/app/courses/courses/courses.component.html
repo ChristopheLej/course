@@ -1,6 +1,7 @@
 <div class="container" *ngIf="allCourses.length > 0">
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
   <h2>All courses</h2>
-  <label>In promo: {{ selectPromoTotal$ | async }}</label>
+  <label>In promo: {{ selectPromoTotal$ | async }} </label>
 
   <mat-tab-group mat-align-tabs="start">
     <mat-tab label="Beginners">

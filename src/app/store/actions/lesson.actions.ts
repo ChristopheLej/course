@@ -5,12 +5,18 @@ import { PageQuery } from '@utils';
 
 export enum LessonActionTypes {
   LoadLessonsRequested = '[Lesson] Load Lessons Requested',
+  ErrorLoadLessons = '[Lesson] Error load Lessons',
   AddLessons = '[Lesson] Add Lessons'
 }
 
 export const loadLessonsRequested = createAction(
   LessonActionTypes.LoadLessonsRequested,
   props<{ courseId: number; page: PageQuery }>()
+);
+
+export const errorLoadLessons = createAction(
+  LessonActionTypes.ErrorLoadLessons,
+  props<{ payload: any }>()
 );
 
 export const addLessons = createAction(

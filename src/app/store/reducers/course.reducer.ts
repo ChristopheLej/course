@@ -19,11 +19,15 @@ export const initialCourseState: CourseState = adapter.getInitialState({
 export function reducer(state = initialCourseState, action: CourseActions): CourseState {
   switch (action.type) {
     case CourseActionTypes.LoadCourses:
-      console.log('courseReducer - CourseActionTypes.LoadCourses');
-      return { ...state, loading: !state.loaded };
+      console.log('courseReducer - CourseActionTypes.LoadCourses', new Date());
+      return { ...state, loading: true, loaded: false };
 
     case CourseActionTypes.SuccessLoadCourses:
-      console.log('courseReducer - CourseActionTypes.SuccessLoadCourses', action.payload);
+      console.log(
+        'courseReducer - CourseActionTypes.SuccessLoadCourses',
+        action.payload,
+        new Date()
+      );
       return adapter.setAll(action.payload.courses, { ...state, loading: false, loaded: true });
 
     case CourseActionTypes.ErrorLoadCourses:
