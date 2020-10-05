@@ -7,10 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { ToolbarComponent } from '@components/toolbar/toolbar.component';
-import { MenuComponent } from '@components/menu/menu.component';
-import { LoginComponent } from '@components/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  ToolbarComponent,
+  MenuComponent,
+  LoginComponent,
+  LayoutComponent,
+  AboutComponent,
+  HomeComponent
+} from '@components';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule, META_REDUCERS } from '@ngrx/store';
 import { reducers, metaReducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
@@ -20,20 +25,21 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CoursesModule } from '@courses/courses.module';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { CustomSerializer, routerFeatureKey } from './utils/customSerializer';
-import { storageMetaReducer } from '@store/reducers/storage.metareducer';
-import { LocalStorageService } from '@services';
+import { getMetaReducers } from '@store/reducers/storage.metareducer';
+import { LocalStorageService, RequestCacheService } from '@services';
 import { ROOT_STORAGE_KEYS, ROOT_LOCAL_STORAGE_KEY } from './app.tokens';
-
-export function getMetaReducers(
-  saveKeys: string[],
-  localStorageKey: string,
-  storageService: LocalStorageService
-) {
-  return [storageMetaReducer(saveKeys, localStorageKey, storageService)];
-}
+import { CachingInterceptor } from './interceptors';
 
 @NgModule({
-  declarations: [AppComponent, ToolbarComponent, MenuComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    ToolbarComponent,
+    MenuComponent,
+    LoginComponent,
+    LayoutComponent,
+    AboutComponent,
+    HomeComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -52,14 +58,17 @@ export function getMetaReducers(
     StoreRouterConnectingModule.forRoot({ stateKey: routerFeatureKey })
   ],
   providers: [
-    { provide: RouterStateSerializer, useClass: CustomSerializer }
-    // { provide: ROOT_STORAGE_KEYS, useValue: ['courses'] },
-    // { provide: ROOT_LOCAL_STORAGE_KEY, useValue: '__app_storage__' },
-    // {
-    //   provide: META_REDUCERS,
-    //   deps: [ROOT_STORAGE_KEYS, ROOT_LOCAL_STORAGE_KEY, LocalStorageService],
-    //   useFactory: getMetaReducers
-    // }
+    RequestCacheService,
+    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
+    { provide: RouterStateSerializer, useClass: CustomSerializer },
+    { provide: ROOT_STORAGE_KEYS, useValue: ['layout.theme', 'user.user', 'user.loggedIn'] },
+    { provide: ROOT_LOCAL_STORAGE_KEY, useValue: '__app_storage__' },
+    {
+      provide: META_REDUCERS,
+      deps: [ROOT_STORAGE_KEYS, ROOT_LOCAL_STORAGE_KEY, LocalStorageService],
+      useFactory: getMetaReducers,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

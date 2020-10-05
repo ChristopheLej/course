@@ -23,3 +23,8 @@ export const addLessons = createAction(
   LessonActionTypes.AddLessons,
   props<{ lessons: Lesson[] }>()
 );
+
+export type LessonActions =
+  | typeof loadLessonsRequested
+  | typeof errorLoadLessons
+  | typeof addLessons;

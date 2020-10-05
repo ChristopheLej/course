@@ -17,5 +17,8 @@
 </div>
 
 <div class="container" *ngIf="allCourses.length === 0">
-  <h2>No courses</h2>
+  <h2 *ngIf="!(isLoading$ | async)">No courses</h2>
+  <div class="spinner" *ngIf="isLoading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
 </div>

@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { Course } from '@models';
 import { LoadCourses, CourseActionTypes, ErrorUpdateCourse } from '@store/actions/course.actions';
 import { Store, select } from '@ngrx/store';
-import { ApplicationState } from '@storeConfig';
 import {
   selectCourses,
   selectBeginnerCourses,
@@ -16,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, ofType } from '@ngrx/effects';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { coursesFeatureKey } from '@store/reducers/course.reducer';
+import * as fromCourse from '@store/reducers/course.reducer';
 
 @Component({
   selector: 'app-courses',
@@ -32,7 +31,7 @@ export class CoursesComponent implements OnInit {
   isLoading$: Observable<boolean>;
 
   constructor(
-    private store: Store<ApplicationState>,
+    private store: Store<fromCourse.CourseState>,
     private route: ActivatedRoute,
     private actions$: Actions,
     private snackBar: MatSnackBar

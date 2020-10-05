@@ -1,10 +1,11 @@
-<mat-sidenav-container fullscreen>
+<mat-sidenav-container fullscreen [ngClass]="(activeTheme$ | async).class">
   <mat-sidenav [(opened)]="opened">
-    <app-menu></app-menu>
+    <app-menu (menuSelected)="onToggle()"></app-menu>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <app-toolbar (menuClick)="onOpen()"></app-toolbar>
+    <app-layout [themes]="appThemes" (themeSelected)="themeSelected($event)"></app-layout>
+    <app-toolbar (menuClick)="onToggle()"></app-toolbar>
 
     <section>
       <router-outlet></router-outlet>

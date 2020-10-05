@@ -44,6 +44,7 @@ export class LessonsComponent implements OnInit, AfterViewInit {
 
     // tslint:disable-next-line: no-string-literal
     this.course = this.route.snapshot.data['course'];
+    const lessons = this.route.snapshot.data['lessons'];
 
     this.loading$ = this.store.pipe(select(selectLessonsLoading));
 

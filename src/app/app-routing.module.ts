@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from '@services';
-import { LoginComponent } from '@components/login/login.component';
-import { CoursesComponent } from './courses';
+import { LoginComponent, AboutComponent, HomeComponent } from '@components';
 
 // const routes: Routes = [
 //   { path: 'login', component: LoginComponent },
@@ -13,9 +12,12 @@ import { CoursesComponent } from './courses';
 const routes: Routes = [
   {
     path: 'courses',
-    loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule)
+    loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
+    canActivate: [AuthGuardService]
   },
-  { path: '', component: CoursesComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '', component: HomeComponent },
   { path: '**', redirectTo: '/' }
 ];
 

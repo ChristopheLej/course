@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
@@ -12,6 +12,8 @@ import { Logout } from '@store/actions/user.actions';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+  @Output() menuSelected = new EventEmitter();
+
   isLoggedIn$: Observable<boolean>;
   isLoggedOut$: Observable<boolean>;
 
@@ -28,5 +30,10 @@ export class MenuComponent implements OnInit {
 
   logout() {
     this.store.dispatch(new Logout());
+    this.clickMenu();
+  }
+
+  clickMenu() {
+    this.menuSelected.emit();
   }
 }

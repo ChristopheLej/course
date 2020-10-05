@@ -18,7 +18,6 @@ export const initialAuthState: AuthState = {
 export function authReducer(state = initialAuthState, action: AuthActions): AuthState {
   switch (action.type) {
     case AuthActionTypes.LOGIN_USER:
-      console.log('authReducer - AuthActionTypes.LOGIN_USER');
       return {
         ...state,
         loading: true,
@@ -26,7 +25,6 @@ export function authReducer(state = initialAuthState, action: AuthActions): Auth
       };
 
     case AuthActionTypes.SUCCESS_LOGIN_USER:
-      console.log('authReducer - AuthActionTypes.SUCCESS_LOGIN_USER');
       return {
         ...state,
         user: action.payload.user,
@@ -36,7 +34,6 @@ export function authReducer(state = initialAuthState, action: AuthActions): Auth
       };
 
     case AuthActionTypes.ERROR_LOGIN_USER:
-      console.log('authReducer - AuthActionTypes.ERROR_LOGIN_USER');
       return {
         ...state,
         user: undefined,
@@ -46,7 +43,6 @@ export function authReducer(state = initialAuthState, action: AuthActions): Auth
       };
 
     case AuthActionTypes.LOGOUT_USER:
-      console.log('authReducer - AuthActionTypes.LOGOUT_USER');
       return {
         ...state,
         user: undefined,

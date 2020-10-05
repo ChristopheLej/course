@@ -3,6 +3,7 @@ import { Course } from '@models';
 
 export enum CourseActionTypes {
   LoadCourses = '[Course] Load Courses',
+  EmptyLoadCourses = '[Course] Courses allready loaded',
   SuccessLoadCourses = '[Course] Success Load Courses',
   ErrorLoadCourses = '[Course] Error Load Courses',
 
@@ -17,6 +18,10 @@ export enum CourseActionTypes {
 
 export class LoadCourses implements Action {
   readonly type = CourseActionTypes.LoadCourses;
+}
+
+export class EmptyLoadCourses {
+  readonly type = CourseActionTypes.EmptyLoadCourses;
 }
 
 export class SuccessLoadCourses {
@@ -61,6 +66,7 @@ export class ErrorUpdateCourse {
 
 export type CourseActions =
   | LoadCourse
+  | EmptyLoadCourses
   | SuccessLoadCourse
   | ErrorLoadCourse
   | LoadCourses

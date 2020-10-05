@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Course } from '@models';
+import { Course, Theme } from '@models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { concatMap } from 'rxjs/operators';
 import { CourseService } from '@services';
@@ -11,6 +11,8 @@ import {
   ErrorUpdateCourse,
   UpdateCourse
 } from '@store/actions/course.actions';
+
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-course-dialog',

@@ -13,25 +13,7 @@ export class CourseResolver implements Resolve<Course> {
   constructor(private store: Store<ApplicationState>) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Course> {
-    // console.log('resolve');
-    // this.store.select(selectCourses).pipe(
-    //   map(data => {
-    //     console.log(data);
-    //     if (data.length === 0) {
-    //       this.store.dispatch(new LoadCourses());
-    //     }
-    //   })
-    // );
-
-    // return this.store.pipe(select(selectCourses), take(1));
-
-    // this.store.dispatch(new LoadCourses());
-    // return this.action$.pipe(
-    //   ofType<SuccessLoadCourses>(CourseActionTypes.SuccessLoadCourses),
-    //   map(loadCourse => console.log(loadCourse.payload)),
-    //   take(1)
-    // );
-
+    console.log('CourseResolver');
     const id = route.params['id'];
 
     return this.store.pipe(
