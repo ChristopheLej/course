@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   appThemes = APP_THEMES;
   activeTheme$: Observable<Theme>;
 
-  constructor(private store: Store<fromReducer.State>, private route: ActivatedRoute) {}
+  constructor(private store: Store<fromReducer.State>) {}
 
   ngOnInit(): void {
     this.activeTheme$ = this.store.select(fromSelector.getActiveTheme);
