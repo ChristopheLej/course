@@ -23,12 +23,12 @@ import * as fromCourse from '@store/reducers/course.reducer';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  allCourses: Course[];
+  isLoading$: Observable<boolean>;
+  allCourses: Course[] = [];
   beginnerCourses$: Observable<Course[]>;
   advancedCourses$: Observable<Course[]>;
   intermediateCourses$: Observable<Course[]>;
   selectPromoTotal$: Observable<number>;
-  isLoading$: Observable<boolean>;
 
   constructor(
     private store: Store<fromCourse.CourseState>,
@@ -43,14 +43,12 @@ export class CoursesComponent implements OnInit {
         verticalPosition: 'top'
       });
     });
-
     this.actions$.pipe(ofType(CourseActionTypes.SuccessUpdateCourse)).subscribe(action => {
       this.snackBar.open('Course saved', '', {
         duration: 2000,
         verticalPosition: 'top'
       });
     });
-
     this.isLoading$ = this.store.pipe(select(isLoading));
   }
 
