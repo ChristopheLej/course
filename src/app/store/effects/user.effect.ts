@@ -12,10 +12,18 @@ import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ApplicationState } from '@storeConfig';
+import { clearStore } from '@store/actions/clear.actions';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private service: AuthService, private actions$: Actions, private router: Router) {}
+  constructor(
+    private service: AuthService,
+    private actions$: Actions,
+    private router: Router,
+    private store: Store<ApplicationState>
+  ) {}
 
   @Effect() Login$: Observable<AuthActions> = this.actions$.pipe(
     ofType<Login>(AuthActionTypes.LOGIN_USER),
@@ -35,6 +43,7 @@ export class AuthEffects {
 
   @Effect({ dispatch: false }) Logout$: Observable<AuthActions> = this.actions$.pipe(
     ofType<Logout>(AuthActionTypes.LOGOUT_USER),
+    tap(() => this.store.dispatch(clearStore())),
     tap(() => this.router.navigateByUrl('/'))
   );
 }
