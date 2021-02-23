@@ -1,6 +1,7 @@
 import { Course } from '@models';
 import { CourseActions, CourseActionTypes } from '@store/actions/course.actions';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { ActionTypes, clearStore } from '@store/actions/clear.actions';
 
 export const coursesFeatureKey = 'courses';
 
@@ -16,7 +17,10 @@ export const initialCourseState: CourseState = adapter.getInitialState({
   loaded: false
 });
 
-export function reducer(state = initialCourseState, action: CourseActions): CourseState {
+export function reducer(
+  state = initialCourseState,
+  action: CourseActions | typeof clearStore
+): CourseState {
   switch (action.type) {
     case CourseActionTypes.LoadCourses:
       console.log('reducer - LoadCourses');
@@ -49,6 +53,9 @@ export function reducer(state = initialCourseState, action: CourseActions): Cour
 
     case CourseActionTypes.ErrorUpdateCourse:
       return state;
+
+    case ActionTypes.ClearStore:
+      return adapter.removeAll(initialCourseState);
 
     default:
       return state;

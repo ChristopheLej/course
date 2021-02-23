@@ -1,6 +1,5 @@
 {
   "/api": {
-    "target": "http://localhost:9300",
-    "secure": false
+    "target": "http://localhost:9300"
   }
 }

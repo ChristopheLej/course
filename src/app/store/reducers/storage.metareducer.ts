@@ -20,7 +20,7 @@ export function storageMetaReducer<S, A extends Action = Action>(
       if (onInit) {
         onInit = false;
         const savedState = storageService.getSavedState(localStorageKey);
-        // // const s1 = { ...nextState, ...savedState };
+        // const s1 = { ...nextState, ...savedState };
         // const s2 = merge(nextState, savedState);
         // console.log('storageMetaReducer - init savedState', savedState, localStorageKey);
         // console.log('storageMetaReducer - init mergeState', s2);
