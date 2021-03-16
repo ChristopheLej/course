@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as LessonActions from '../actions/lesson.actions';
 import { Lesson } from '@models';
-import { identifierModuleUrl } from '@angular/compiler';
+import { clearStore } from '@store/actions/clear.actions';
 
 export const lessonsFeatureKey = 'lessons';
 
@@ -34,7 +34,8 @@ export const reducer = createReducer(
   on(LessonActions.errorLoadLessons, state => ({ ...state, loading: false })),
   on(LessonActions.addLessons, (state, action) =>
     adapter.addMany(action.lessons, { ...state, loading: false })
-  )
+  ),
+  on(clearStore, (state, action) => adapter.removeAll(initialState))
 );
 
 export const { selectIds, selectEntities, selectAll, selectTotal } = adapter.getSelectors();
