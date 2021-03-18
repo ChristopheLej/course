@@ -13,7 +13,7 @@ import { LoadCourses } from '@store/actions/course.actions';
 import { ApplicationState } from '@storeConfig';
 import { Course } from '@models';
 import * as fromCourses from '@store/selectors/course.selector';
-import * as CoursesStub from '../../../stubs/courses.stub';
+import { COURSES } from '@stubs/courses.stub';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoursesCardListComponent } from '../courses-card-list/courses-card-list.component';
 
@@ -28,7 +28,6 @@ describe('CoursesComponent', () => {
   let mockSelectAdvancedCoursesSelector: MemoizedSelector<ApplicationState, Course[]>;
   let mockSelectIntermediateCoursesSelector: MemoizedSelector<ApplicationState, Course[]>;
   let mockSelectPromoTotalSelector: MemoizedSelector<ApplicationState, number>;
-  const courses = CoursesStub.Courses;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -87,19 +86,19 @@ describe('CoursesComponent', () => {
 
   it('should change LoadCourses', () => {
     mockIsLoadingSelector.setResult(false);
-    mockSelectCoursesSelector.setResult(courses);
-    mockSelectBeginnerCoursesSelector.setResult([courses[0]]);
-    mockSelectIntermediateCoursesSelector.setResult([courses[1]]);
-    mockSelectAdvancedCoursesSelector.setResult([courses[2]]);
+    mockSelectCoursesSelector.setResult(COURSES);
+    mockSelectBeginnerCoursesSelector.setResult([COURSES[0]]);
+    mockSelectIntermediateCoursesSelector.setResult([COURSES[1]]);
+    mockSelectAdvancedCoursesSelector.setResult([COURSES[2]]);
     mockSelectPromoTotalSelector.setResult(2);
     store.refreshState();
     fixture.detectChanges();
 
     component.isLoading$.subscribe(result => expect(result).toBeFalse());
-    expect(component.allCourses).toEqual(courses);
-    component.beginnerCourses$.subscribe(result => expect(result).toEqual([courses[0]]));
-    component.intermediateCourses$.subscribe(result => expect(result).toEqual([courses[1]]));
-    component.advancedCourses$.subscribe(result => expect(result).toEqual([courses[2]]));
+    expect(component.allCourses).toEqual(COURSES);
+    component.beginnerCourses$.subscribe(result => expect(result).toEqual([COURSES[0]]));
+    component.intermediateCourses$.subscribe(result => expect(result).toEqual([COURSES[1]]));
+    component.advancedCourses$.subscribe(result => expect(result).toEqual([COURSES[2]]));
     component.selectPromoTotal$.subscribe(result => expect(result).toEqual(2));
   });
 });

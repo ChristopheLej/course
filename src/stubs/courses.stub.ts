@@ -1,6 +1,6 @@
 import { Course } from '@models';
 
-export const Courses: Course[] = [
+export const COURSES: Course[] = [
   {
     id: 1,
     description: 'description1',

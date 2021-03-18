@@ -11,7 +11,7 @@ export class CourseService {
   constructor(private http: HttpClient) {}
 
   findCourseById(id: number): Observable<Course> {
-    return this.http.get<Course>(`/api/courses/${id}`);
+    return this.http.get<Course>(`/api/courses/${id}`).pipe(map(res => res['payload']));
   }
 
   findAllCourses(): Observable<Course[]> {
@@ -19,8 +19,8 @@ export class CourseService {
     return this.http.get<Course[]>('/api/courses').pipe(map(res => res['payload']));
   }
 
-  saveCourse(courseId: number, changes: Partial<Course>) {
-    return this.http.put('/api/courses/' + courseId, changes);
+  saveCourse(courseId: number, changes: Partial<Course>): Observable<Course> {
+    return this.http.put('/api/courses/' + courseId, changes).pipe(map(res => res['payload']));
   }
 
   findLessons(courseId: number, pageNumber = 0, pageSize = 3): Observable<Lesson[]> {

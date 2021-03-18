@@ -37,7 +37,7 @@ export class CourseDialogComponent implements OnInit {
     this.form = fb.group({
       description: [course.description, Validators.required],
       category: [course.category, Validators.required],
-      promotion: [course.promo, []],
+      promo: [course.promo, []],
       longDescription: [course.longDescription, Validators.required]
     });
 
@@ -61,6 +61,7 @@ export class CourseDialogComponent implements OnInit {
     // Test multiple click
     // this.store.dispatch(new UpdateCourse({ id: this.course.id, changes: this.form.value }));
 
+    console.log(this.form.value);
     this.dialogRef.close(this.form.value);
   }
 }

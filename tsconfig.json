@@ -20,7 +20,8 @@
       "@utils": ["src/app/utils/index.ts"],
       "@storeConfig": ["src/app/store/index.ts"],
       "@store/*": ["src/app/store/*"],
-      "@resolvers": ["src/app/resolvers/index.ts"]
+      "@resolvers": ["src/app/resolvers/index.ts"],
+      "@stubs/*": ["src/stubs/*"]
     }
   },
   "angularCompilerOptions": {

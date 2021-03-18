@@ -17,6 +17,6 @@ export function saveCourse(req: Request, res: Response) {
       ...COURSES[id],
       ...changes
     };
-    res.status(200).json(COURSES[id]);
+    res.status(200).json({ payload: COURSES[id] });
   }
 }

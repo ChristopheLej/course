@@ -16,5 +16,5 @@ export function getCourseById(req: Request, res: Response) {
 
   const course = courses.find(course => course.id === courseId);
 
-  res.status(200).json(course);
+  res.status(200).json({ payload: course });
 }
