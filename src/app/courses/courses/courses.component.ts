@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from '@models';
-import { LoadCourses, CourseActionTypes, ErrorUpdateCourse } from '@store/actions/course.actions';
+import { loadCourses, CourseActionTypes, errorUpdateCourse } from '@store/actions/course.actions';
 import { Store, select } from '@ngrx/store';
 import {
   selectCourses,
@@ -37,7 +37,7 @@ export class CoursesComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {
     this.actions$.pipe(ofType(CourseActionTypes.ErrorUpdateCourse)).subscribe(action => {
-      const response = (action as ErrorUpdateCourse).payload as HttpErrorResponse;
+      const response = (action as any).payload as HttpErrorResponse;
       this.snackBar.open(response.statusText, 'Error', {
         duration: 2000,
         verticalPosition: 'top'
@@ -53,7 +53,7 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new LoadCourses());
+    this.store.dispatch(loadCourses());
     this.store.pipe(select(selectCourses)).subscribe(courses => (this.allCourses = courses));
     this.beginnerCourses$ = this.store.pipe(select(selectBeginnerCourses));
     this.advancedCourses$ = this.store.pipe(select(selectAdvancedCourses));

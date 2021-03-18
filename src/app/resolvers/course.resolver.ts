@@ -4,7 +4,7 @@ import { Course } from '@models';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { ApplicationState } from '@storeConfig';
-import { LoadCourse } from '@store/actions/course.actions';
+import { loadCourse } from '@store/actions/course.actions';
 import { tap, filter, first } from 'rxjs/operators';
 import { selectCourseById } from '@store/selectors/course.selector';
 
@@ -20,7 +20,7 @@ export class CourseResolver implements Resolve<Course> {
       select(selectCourseById(id)),
       tap(course => {
         if (!course) {
-          this.store.dispatch(new LoadCourse({ courseId: id }));
+          this.store.dispatch(loadCourse({ courseId: id }));
         }
       }),
       filter(course => !!course),

@@ -7,9 +7,9 @@ import { CourseService } from '@services';
 import { Store } from '@ngrx/store';
 import { ApplicationState } from '@storeConfig';
 import {
-  SuccessUpdateCourse,
-  ErrorUpdateCourse,
-  UpdateCourse
+  successUpdateCourse,
+  errorUpdateCourse,
+  updateCourse
 } from '@store/actions/course.actions';
 
 import { Observable } from 'rxjs';
@@ -34,7 +34,7 @@ export class CourseDialogComponent implements OnInit {
     this.course = course;
     this.description = course.description;
 
-    this.form = fb.group({
+    this.form = this.fb.group({
       description: [course.description, Validators.required],
       category: [course.category, Validators.required],
       promo: [course.promo, []],

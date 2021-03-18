@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Course } from '@models';
 
 export enum CourseActionTypes {
@@ -16,62 +16,60 @@ export enum CourseActionTypes {
   ErrorUpdateCourse = '[Course] Error Update Course'
 }
 
-export class LoadCourses implements Action {
-  readonly type = CourseActionTypes.LoadCourses;
-}
+export const loadCourses = createAction(CourseActionTypes.LoadCourses);
 
-export class EmptyLoadCourses {
-  readonly type = CourseActionTypes.EmptyLoadCourses;
-}
+export const emptyLoadCourses = createAction(CourseActionTypes.EmptyLoadCourses);
 
-export class SuccessLoadCourses {
-  readonly type = CourseActionTypes.SuccessLoadCourses;
-  constructor(public payload: { courses: Course[] }) {}
-}
+export const loadLessonsRequested = createAction(
+  CourseActionTypes.SuccessLoadCourses,
+  props<{ courses: Course[] }>()
+);
 
-export class ErrorLoadCourses {
-  readonly type = CourseActionTypes.ErrorLoadCourses;
-  constructor(public payload: any) {}
-}
+export const successLoadCourses = createAction(
+  CourseActionTypes.SuccessLoadCourses,
+  props<{ courses: Course[] }>()
+);
 
-export class LoadCourse {
-  readonly type = CourseActionTypes.LoadCourse;
-  constructor(public payload: { courseId: number }) {}
-}
+export const errorLoadCourses = createAction(
+  CourseActionTypes.ErrorLoadCourses,
+  props<{ payload: any }>()
+);
 
-export class SuccessLoadCourse {
-  readonly type = CourseActionTypes.SuccessLoadCourse;
-  constructor(public payload: { course: Course }) {}
-}
+export const loadCourse = createAction(CourseActionTypes.LoadCourse, props<{ courseId: number }>());
 
-export class ErrorLoadCourse {
-  readonly type = CourseActionTypes.ErrorLoadCourse;
-  constructor(public payload: any) {}
-}
+export const successLoadCourse = createAction(
+  CourseActionTypes.SuccessLoadCourse,
+  props<{ course: Course }>()
+);
 
-export class UpdateCourse {
-  readonly type = CourseActionTypes.UpdateCourse;
-  constructor(public payload: { id: number; changes: Partial<Course> }) {}
-}
+export const errorLoadCourse = createAction(
+  CourseActionTypes.ErrorLoadCourse,
+  props<{ payload: any }>()
+);
 
-export class SuccessUpdateCourse {
-  readonly type = CourseActionTypes.SuccessUpdateCourse;
-  constructor(public payload: { id: number; changes: Partial<Course> }) {}
-}
+export const updateCourse = createAction(
+  CourseActionTypes.UpdateCourse,
+  props<{ id: number; changes: Partial<Course> }>()
+);
 
-export class ErrorUpdateCourse {
-  readonly type = CourseActionTypes.ErrorUpdateCourse;
-  constructor(public payload: any) {}
-}
+export const successUpdateCourse = createAction(
+  CourseActionTypes.SuccessUpdateCourse,
+  props<{ id: number; changes: Partial<Course> }>()
+);
+
+export const errorUpdateCourse = createAction(
+  CourseActionTypes.ErrorUpdateCourse,
+  props<{ payload: any }>()
+);
 
 export type CourseActions =
-  | LoadCourse
-  | EmptyLoadCourses
-  | SuccessLoadCourse
-  | ErrorLoadCourse
-  | LoadCourses
-  | SuccessLoadCourses
-  | ErrorLoadCourses
-  | UpdateCourse
-  | SuccessUpdateCourse
-  | ErrorUpdateCourse;
+  | typeof loadCourse
+  | typeof emptyLoadCourses
+  | typeof successLoadCourse
+  | typeof errorLoadCourse
+  | typeof loadCourses
+  | typeof successLoadCourses
+  | typeof errorLoadCourses
+  | typeof updateCourse
+  | typeof successUpdateCourse
+  | typeof errorUpdateCourse;

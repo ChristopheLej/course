@@ -9,7 +9,7 @@ import { Actions } from '@ngrx/effects';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, Observable } from 'rxjs';
 import { Action, MemoizedSelector } from '@ngrx/store';
-import { LoadCourses } from '@store/actions/course.actions';
+import { loadCourses } from '@store/actions/course.actions';
 import { ApplicationState } from '@storeConfig';
 import { Course } from '@models';
 import * as fromCourses from '@store/selectors/course.selector';
@@ -76,7 +76,7 @@ describe('CoursesComponent', () => {
   });
 
   it('should dispatch LoadCourses', () => {
-    const expectedAction = new LoadCourses();
+    const expectedAction = loadCourses();
     spyOn(store, 'dispatch').and.callThrough();
 
     component.ngOnInit();

@@ -4,7 +4,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { CourseDialogComponent } from '@courses/course-dialog/course-dialog.component';
 import { Store } from '@ngrx/store';
 import { ApplicationState } from '@storeConfig';
-import { UpdateCourse } from '@store/actions/course.actions';
+import { updateCourse } from '@store/actions/course.actions';
 import { Observable } from 'rxjs/internal/Observable';
 import * as fromSelector from '@store/selectors/layout.selector';
 
@@ -34,7 +34,7 @@ export class CoursesCardListComponent implements OnInit {
     const dialogRef = this.dialog.open(CourseDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
-        this.store.dispatch(new UpdateCourse({ id: course.id, changes: data }));
+        this.store.dispatch(updateCourse({ id: course.id, changes: data }));
       }
     });
   }

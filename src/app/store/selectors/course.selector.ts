@@ -18,13 +18,13 @@ export const selectIntermediateCourses = selectSpecificCourses('INTERMEDIATE');
 export const selectCourseById = (id: number) =>
   createSelector(selectCourseState$, courseState => courseState.entities[id]);
 
-export const selectPromoTotal = createSelector(selectCourses, courses => {
-  const coursesPromo = courses.filter(course => course.promo);
-  console.log('selectPromoTotal', coursesPromo, courses);
+export const selectPromoTotal = createSelector(
+  selectCourses,
+  courses => courses.filter(course => course.promo).length
+);
 
-  return courses.filter(course => course.promo).length;
-});
-
-export const allCoursesLoaded = createSelector(selectCourseState$, state => state.loaded);
+export const allCoursesLoaded = createSelector(selectCourseState$, state =>
+  state.loaded ? fromCourses.selectAll : []
+);
 
 export const isLoading = createSelector(selectCourseState$, state => state.loading);
